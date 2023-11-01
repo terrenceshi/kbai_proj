@@ -39,5 +39,5 @@ Software Dev:
  - User is first prompted on how much they like certain movies
      - movies with high user ratings will make the algorithm ask the user for more movies of that genre
 
-    -after X amount of movies rated, the app will give back movies with highest scores
-        -goes through all movies and sees if movie fits concept.
+     - after X amount of movies rated, the app will give back movies with highest scores
+         - goes through all movies and sees if movie fits concept.
