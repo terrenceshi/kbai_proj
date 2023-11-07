@@ -2,42 +2,36 @@
 
 ## to do:
 
-clean data:
- - FIX runtime BS.
+https://www.kaggle.com/datasets/utsh0dey/25k-movie-dataset
 
- - Look into getting plot synopsis
-
- - Decide if you want to cull any amount of entries
+MOST UP TO DATE TO DO:
+ - Adapt IGS from hw to here in order to generate concept and apply concept to recommendations
+ - Make flashy and shit
 
 Sentence Reading:
- - Design Sentence Reading Algorithm
-     - Data to extract: 
-         - keywords for themes
-             - in terms of processing, just need to be able to identify nouns
-             - highkey will be carried by provided plot keywords
+ - figure out if you want to cull common words
 
-             - once keywords are extracted, can look to create groups (time travel, demons, etc)
-                 - assign movie to group(s)
+Incremental Concept Learning + SD:
+ - First, ask user if they like 1-2 movies from categories: Action, Comedy, Drama, Horror
+    - Essentially doing some incremental concept learning with what genre they like
+    - Might need some filter (ratings + time?) to make sure user has seen majority of films
+    - Don't care about what movies they don't like / haven't seen, only draw conclucions from movies they like
 
-         - if can get plot synopsis, look for possibility of twists or good / bad ending
+    - If they like action, see if they like Adventure, Crime, Thriller, Fantasy, Mystery, Sci-Fi
+    - If they like Drama, see if they like Biography, Romance, more Drama idk
 
-         - can also use adjectives to determine atmosphere of film. 
-             - if getting reviews, can look into stuff like:
-                 - funny
-             - atmosphere options: tense, relaxed, 
+    - Run it back if you didn't record 10 movies the user likes
 
-    - final csv will be same but with new columns that include tags / keywords we want
+    - once you get say 10 movies the user likes, create hypotheses and run hypotheses against database of similar genre movies
 
-Incremental Concept Learning:
- - Need to study algorithm.
+    - can get option where user says "ive seen this movie and i like / dislike it" which then updates hypothesis
 
- - In addition to tags assigned by sentence understanding, use metadata such as cast, runtime, rating
+- Get posters links for every movie and create sub csvs where movies are filtered by main genre
 
-Software Dev:
- - React app
-
- - User is first prompted on how much they like certain movies
-     - movies with high user ratings will make the algorithm ask the user for more movies of that genre
-
-     - after X amount of movies rated, the app will give back movies with highest scores
-         - goes through all movies and sees if movie fits concept.
+FULL LIST OF GENRES:
+```
+array(['Action', 'Animation', 'Adventure', 'Comedy', 'Crime', 'Drama',
+       'Biography', 'Fantasy', 'Mystery', 'Horror', 'Sci-Fi', 'Thriller',
+       'Family', 'Western', 'War', 'Romance', 'History', 'Musical',
+       'Music', 'Sport', 'Film-Noir'], dtype=object)
+```
