@@ -7,12 +7,15 @@ import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 
 import MovieCard from './MovieCard.js'
 
-function Tinder({movieLst, likedMovies, setLikedMovies, refreshMovies}) {
+function Tinder({movieLst, likedMovies, setLikedMovies, hatedMovies, setHatedMovies, refreshMovies}) {
+  const [loaded, setLoaded] = useState(false);
+
   const iconSize = 36;
 
   const [idx, setIdx] = useState(0);
 
   const increment = () => {
+    setLoaded(false);
     if(idx < movieLst.length - 1){
         setIdx(idx + 1);
     } else {
@@ -23,6 +26,11 @@ function Tinder({movieLst, likedMovies, setLikedMovies, refreshMovies}) {
 
   const like = () => {
     setLikedMovies(likedMovies.concat([movieLst[idx]]));
+    increment();
+  }
+
+  const hate = () => {
+    setHatedMovies(hatedMovies.concat([movieLst[idx]]));
     increment();
   }
 
@@ -37,7 +45,12 @@ function Tinder({movieLst, likedMovies, setLikedMovies, refreshMovies}) {
         backgroundColor: 'white',
         borderRadius: 2
     }}>
-        <MovieCard url = {movieLst[idx][13]} height = {500}/>
+        <MovieCard 
+          url = {movieLst[idx][14]} 
+          height = {500}
+          setLoaded = {setLoaded}
+          loaded = {loaded}
+        />
 
         <Box sx = {{
         display: 'flex',
@@ -49,7 +62,7 @@ function Tinder({movieLst, likedMovies, setLikedMovies, refreshMovies}) {
             <FavoriteIcon sx = {{fontSize: iconSize}}/>
         </IconButton>
 
-        <IconButton onClick = {increment}>
+        <IconButton onClick = {hate}>
             <ThumbDownIcon sx = {{fontSize: iconSize}}/>
         </IconButton>
 

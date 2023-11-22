@@ -2,10 +2,11 @@ import { useState, useEffect } from 'react';
 
 import { text } from 'd3-request';
 import { csvParseRows } from 'd3';
+import JSON5 from 'json5'
 
 import { Box } from '@mui/material';
 
-import url from "./data/movie_data5.csv";
+import url from "./data/movie_data6.csv";
 
 import Tinder from './components/Tinder.js'
 import SearchApp from './components/SearchApp.js'
@@ -22,6 +23,7 @@ function App() {
   const [movieData, setMovieData] = useState([]);
   const [movieLst, setMovieLst] = useState([]);
   const [likedMovies, setLikedMovies] = useState([]);
+  const [hatedMovies, setHatedMovies] = useState([]);
   const [idxLstState, setIdxLstState] = useState([]);
   const [freshLstState, setFreshLstState] = useState([]);
 
@@ -44,7 +46,7 @@ function App() {
   const refreshMovies = () => {
     if(likedMovies.length >= 10){
       setTinderMode(false);
-      Igs();
+      Igs(likedMovies, hatedMovies);
     } else {
       // create new freshLst and idxLst depending on genre stuff. Feel free to not lock by year or rating if results r overwhelming
       setMovieLst(getMovies(movieBatch, idxLstState, freshLstState));
@@ -53,11 +55,15 @@ function App() {
 
   useEffect(() => {
     text(url, function(data) {
-      var parseData = csvParseRows(data);
+      var parseData = csvParseRows(data).slice(1).map((entry) => {
+        entry[9] = JSON5.parse(entry[9]);
+        entry[11] = JSON5.parse(entry[11]);
+        entry[12] = JSON5.parse(entry[12]);
+        return entry;
+      });
       setMovieData(parseData);
 
-      var freshLst = parseData.filter(function(d){return d[6] == 'new'})
-      var freshLst = freshLst.filter(function(d){return d[4] == 'high'})
+      var freshLst = parseData.filter(function(d){return d[7] >= 80})
 
       // Get 8 Random Movies
       var idxLst = Array.from(Array(freshLst.length).keys());
@@ -69,8 +75,8 @@ function App() {
       setAppLoaded(true);
 
       // COLUMN VALUES: 0: title, 1: runtime, 2: runtime label, 3: rating, 
-      //                4: rating label, 5: year, 6: year label, 7: genre, 
-      //                8: genres, 9: plot, 10: tags, 11: nouns, 12: id, 13: poster
+      //                4: rating label, 5: year, 6: year label, 7: popularity
+      //                8: genre, 9: genres, 10: plot, 11: tags, 12: nouns, 13: id, 14: poster
     })
   }, []);
 
@@ -88,6 +94,8 @@ function App() {
               movieLst = {movieLst} 
               likedMovies = {likedMovies}
               setLikedMovies = {setLikedMovies}
+              hatedMovies = {hatedMovies}
+              setHatedMovies = {setHatedMovies}
               refreshMovies = {refreshMovies}
             />
             :
