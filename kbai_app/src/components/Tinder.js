@@ -14,13 +14,13 @@ function Tinder({movieLst, likedMovies, setLikedMovies, hatedMovies, setHatedMov
 
   const [idx, setIdx] = useState(0);
 
-  const increment = (liked) => {
+  const increment = () => {
     setLoaded(false);
     if(idx < movieLst.length - 1){
-        setIdx(idx + 1);
+      setIdx(idx + 1);
     } else {
-        refreshMovies(false);
-        setIdx(0);
+      refreshMovies(false);
+      setIdx(0);
     }
   }
 
@@ -29,10 +29,10 @@ function Tinder({movieLst, likedMovies, setLikedMovies, hatedMovies, setHatedMov
 
     if(newLst.length >= likeThresh){
       refreshMovies(true)
+    } else {
+      setLikedMovies(newLst);
+      increment();
     }
-
-    setLikedMovies(newLst);
-    increment();
   }
 
   const hate = () => {

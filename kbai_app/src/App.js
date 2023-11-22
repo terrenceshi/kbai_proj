@@ -29,19 +29,22 @@ function App() {
   const [freshLstState, setFreshLstState] = useState([]);
   const [movieRecs, setMovieRecs] = useState({});
 
-  var movieBatch = 12;
+  const movieBatch = 20;
   var likeThresh = 15;
 
-  const getMovies = (max, idxLst, sampleLst) => {
-    var firstMovieLst = []
+  const getMovies = (idxLst, sampleLst) => {
+    var firstMovieLst = [];
 
-    for(let i = 0; i < max; i++){
-      var idx1 = getRandomInt(idxLst.length);
-      idx1 = idxLst[idx1]
-      idxLst.splice(idx1, 1);
+    for(let i = 0; i < movieBatch; i++){
+      let idx1_og = getRandomInt(idxLst.length);
+      let idx1 = idxLst[idx1_og]
+
+      idxLst.splice(idx1_og, 1);
 
       firstMovieLst.push(sampleLst[idx1]);
     }
+
+    setIdxLstState(idxLst)
 
     return firstMovieLst
   }
@@ -52,7 +55,7 @@ function App() {
       Igs(likedMovies, hatedMovies, movieData, setMovieRecs);
     } else {
       // create new freshLst and idxLst depending on genre stuff. Feel free to not lock by year or rating if results r overwhelming
-      setMovieLst(getMovies(movieBatch, idxLstState, freshLstState));
+      setMovieLst(getMovies([...idxLstState], freshLstState));
     }
   }
 
@@ -71,9 +74,8 @@ function App() {
       // Get 8 Random Movies
       var idxLst = Array.from(Array(freshLst.length).keys());
 
-      setMovieLst(getMovies(movieBatch, idxLst, freshLst))
+      setMovieLst(getMovies(idxLst, freshLst))
 
-      setIdxLstState(idxLst);
       setFreshLstState(freshLst);
       setAppLoaded(true);
 

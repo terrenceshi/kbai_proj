@@ -5,6 +5,8 @@
 https://www.kaggle.com/datasets/utsh0dey/25k-movie-dataset
 
 MOST UP TO DATE TO DO:
+ - on some use case, perma loads ??
+
  - Make flashy and shit
 
 Incremental Concept Learning + SD:
