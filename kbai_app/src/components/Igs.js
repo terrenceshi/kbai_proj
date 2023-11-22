@@ -1,4 +1,4 @@
-const Igs = (likedMovies, hatedMovies) => {
+export const Igs = (likedMovies, hatedMovies, movieData, setMovieRecs) => {
     // indices with single labels
         // 2: runtime
         // 4: rating
@@ -104,10 +104,7 @@ const Igs = (likedMovies, hatedMovies) => {
             }
         }
     }
-
-    console.log(hypothesisLst.length);
     hypothesisLst = cullHypothesis(hypothesisLst);
-    console.log(hypothesisLst.length);
 
     // now we actually perform IGS
 
@@ -118,7 +115,7 @@ const Igs = (likedMovies, hatedMovies) => {
         while(j < hypothesisLst.length){
             let hypo = hypothesisLst[j];
 
-            var result = checkHypo(hatedMovie, hypo);
+            var result = checkHypo(hatedMovie, hypo, true);
 
             if(result === 1){
                 // Remove current hypothesis and make it more specific by adding a random feature with a random value
@@ -154,8 +151,55 @@ const Igs = (likedMovies, hatedMovies) => {
             j += 1;
         }
     }
-    console.log("WE MADE IT!")
     console.log(hypothesisLst);
+
+    // igs complete. Now apply concept to some random movies and see whats up.
+
+    var genreLst = ['Action', 'Animation', 'Adventure', 'Comedy', 'Crime', 'Drama',
+    'Biography', 'Fantasy', 'Mystery', 'Horror', 'Sci-Fi', 'Thriller',
+    'Family', 'Western', 'War', 'Romance', 'History', 'Musical',
+    'Music', 'Sport', 'Film-Noir'];
+
+    console.log(movieData.length)
+    let movieDataFilter = movieData.filter(n => !likedMovies.includes(n))
+    movieDataFilter = movieDataFilter.filter(n => !hatedMovies.includes(n))
+    console.log(movieDataFilter.length)
+
+    var movieRecs = {}
+
+    for(let k = 0; k < genreLst.length; k++){
+        var filterLst = movieDataFilter.filter(function(d){return d[8] === genreLst[k]});
+        var movieOutput = [];
+
+        for(let i = 0; i < filterLst.length; i++){
+            let movie = filterLst[i];
+
+            for(let j = 0; j < hypothesisLst.length; j++){
+                let hypo = hypothesisLst[j];
+
+                let result = checkHypo(movie, hypo, true);
+
+                if(result === 1){
+                    movieOutput.push(movie);
+                    break;
+                }
+            }
+            
+        }
+        movieRecs[genreLst[k]] = movieOutput;
+    }
+
+    for(let i = 0; i < genreLst.length; i++){
+        let genre = genreLst[i];
+
+        if(movieRecs[genre].length === 0){
+            delete movieRecs[genre];
+        }
+    }
+
+    console.log(movieRecs);
+
+    setMovieRecs(movieRecs);
 }
 
 const cullHypothesis = (hypothesisLst) => {
@@ -220,7 +264,7 @@ const cullHypothesis = (hypothesisLst) => {
     return hypothesisLst;
 }
 
-const checkHypo = (instance, hypothesis) => {
+export const checkHypo = (instance, hypothesis, strict) => {
     var idxLabels = [2, 4, 6];
     var idxWords = [9, 11, 12]
     var idxImp = idxLabels.concat(idxWords);
@@ -234,6 +278,10 @@ const checkHypo = (instance, hypothesis) => {
 
         if(feat == -1){
             deadTraits += 1;
+            continue;
+        }
+
+        if(!strict && idxImp[i] > 6){
             continue;
         }
 
@@ -252,10 +300,14 @@ const checkHypo = (instance, hypothesis) => {
         }
     }
 
-    if(same >= hypothesis.length - deadTraits){
+    let thresh = idxImp.length - deadTraits;
+
+    if(!strict){
+        thresh = idxImp.length - 3 - deadTraits
+    }
+
+    if(same >= thresh){
         return 1;
     }
     return 0;
 }
-
-export default Igs;

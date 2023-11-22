@@ -7,25 +7,31 @@ import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 
 import MovieCard from './MovieCard.js'
 
-function Tinder({movieLst, likedMovies, setLikedMovies, hatedMovies, setHatedMovies, refreshMovies}) {
+function Tinder({movieLst, likedMovies, setLikedMovies, hatedMovies, setHatedMovies, refreshMovies, likeThresh}) {
   const [loaded, setLoaded] = useState(false);
 
   const iconSize = 36;
 
   const [idx, setIdx] = useState(0);
 
-  const increment = () => {
+  const increment = (liked) => {
     setLoaded(false);
     if(idx < movieLst.length - 1){
         setIdx(idx + 1);
     } else {
-        refreshMovies();
+        refreshMovies(false);
         setIdx(0);
     }
   }
 
   const like = () => {
-    setLikedMovies(likedMovies.concat([movieLst[idx]]));
+    var newLst = likedMovies.concat([movieLst[idx]]);
+
+    if(newLst.length >= likeThresh){
+      refreshMovies(true)
+    }
+
+    setLikedMovies(newLst);
     increment();
   }
 

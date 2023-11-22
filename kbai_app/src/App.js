@@ -5,12 +5,13 @@ import { csvParseRows } from 'd3';
 import JSON5 from 'json5'
 
 import { Box } from '@mui/material';
+import Skeleton from '@mui/material/Skeleton';
 
-import url from "./data/movie_data6.csv";
+import url from "./data/movie_data7.csv";
 
 import Tinder from './components/Tinder.js'
 import SearchApp from './components/SearchApp.js'
-import Igs from './components/Igs.js'
+import { Igs } from './components/Igs.js'
 
 function getRandomInt(max) {
   return Math.floor(Math.random() * max);
@@ -26,8 +27,10 @@ function App() {
   const [hatedMovies, setHatedMovies] = useState([]);
   const [idxLstState, setIdxLstState] = useState([]);
   const [freshLstState, setFreshLstState] = useState([]);
+  const [movieRecs, setMovieRecs] = useState({});
 
   var movieBatch = 12;
+  var likeThresh = 15;
 
   const getMovies = (max, idxLst, sampleLst) => {
     var firstMovieLst = []
@@ -43,10 +46,10 @@ function App() {
     return firstMovieLst
   }
 
-  const refreshMovies = () => {
-    if(likedMovies.length >= 10){
+  const refreshMovies = (earlyEnd) => {
+    if(likedMovies.length >= likeThresh || earlyEnd){
       setTinderMode(false);
-      Igs(likedMovies, hatedMovies);
+      Igs(likedMovies, hatedMovies, movieData, setMovieRecs);
     } else {
       // create new freshLst and idxLst depending on genre stuff. Feel free to not lock by year or rating if results r overwhelming
       setMovieLst(getMovies(movieBatch, idxLstState, freshLstState));
@@ -97,11 +100,21 @@ function App() {
               hatedMovies = {hatedMovies}
               setHatedMovies = {setHatedMovies}
               refreshMovies = {refreshMovies}
+              likeThresh = {likeThresh}
             />
             :
-            <SearchApp movieData = {movieData}/>
+            <SearchApp 
+              movieData = {movieData}
+              movieRecs = {movieRecs}
+            />
           :
-          <div/>
+          <Skeleton 
+            variant="rounded"
+            width={500 * (2/3)} 
+            height={500+84} 
+            sx={{
+              bgcolor: 'grey.300',
+          }}/>
       }
     </Box>
   );
