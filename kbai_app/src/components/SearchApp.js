@@ -138,7 +138,7 @@ function SearchApp({movieData, movieRecs, hypoState}) {
                             > 
                                 <SearchIcon /> 
                             </IconButton> 
-                        ) }} 
+                        )}} 
                     />} 
             />
         </Box>
