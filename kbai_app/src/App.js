@@ -26,9 +26,11 @@ function App() {
   const [movieLst, setMovieLst] = useState([]);
   const [likedMovies, setLikedMovies] = useState([]);
   const [hatedMovies, setHatedMovies] = useState([]);
+
   const [idxLstState, setIdxLstState] = useState([]);
   const [freshLstState, setFreshLstState] = useState([]);
   const [movieRecs, setMovieRecs] = useState({});
+  const [hypoState, setHypoState] = useState({});
 
   const movieBatch = 20;
   var likeThresh = 15;
@@ -54,7 +56,7 @@ function App() {
     if(likedMovies.length >= likeThresh || earlyEnd){
       setTinderMode(false);
       setRecsLoading(true);
-      Igs(likedMovies, hatedMovies, movieData, setMovieRecs);
+      Igs(likedMovies, hatedMovies, movieData, setMovieRecs, setHypoState);
       setRecsLoading(false);
     } else {
       // create new freshLst and idxLst depending on genre stuff. Feel free to not lock by year or rating if results r overwhelming
@@ -116,6 +118,7 @@ function App() {
             <SearchApp 
               movieData = {movieData}
               movieRecs = {movieRecs}
+              hypoState = {hypoState}
             />
           :
           <Skeleton 

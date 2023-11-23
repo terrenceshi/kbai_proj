@@ -1,4 +1,4 @@
-export const Igs = (likedMovies, hatedMovies, movieData, setMovieRecs) => {
+export const Igs = (likedMovies, hatedMovies, movieData, setMovieRecs, setHypoState) => {
     // indices with single labels
         // 2: runtime
         // 4: rating
@@ -152,6 +152,7 @@ export const Igs = (likedMovies, hatedMovies, movieData, setMovieRecs) => {
         }
     }
     // console.log(hypothesisLst);
+    setHypoState(hypothesisLst);
 
     // igs complete. Now apply concept to some random movies and see whats up.
 
@@ -267,7 +268,20 @@ const cullHypothesis = (hypothesisLst) => {
     return hypothesisLst;
 }
 
-export const checkHypo = (instance, hypothesis, strict) => {
+export const checkHypoLst = (instance, hypothesisLst, strict) => {
+    for(let j = 0; j < hypothesisLst.length; j++){
+        let hypo = hypothesisLst[j];
+
+        let result = checkHypo(instance, hypo, strict);
+
+        if(result === 1){
+            return 1;
+        }
+    }
+    return 0;
+}
+
+const checkHypo = (instance, hypothesis, strict) => {
     var idxLabels = [2, 4, 6];
     var idxWords = [9, 11, 12]
     var idxImp = idxLabels.concat(idxWords);
