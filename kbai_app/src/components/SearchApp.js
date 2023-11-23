@@ -1,37 +1,63 @@
 import { useState } from 'react';
 
 import { Box, Typography, Autocomplete, TextField } from '@mui/material';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import { useTheme } from '@mui/material/styles';
 
 import MovieCard from './MovieCard.js'
 
-function SearchApp({movieData}) {
+function SearchApp({movieData, movieRecs}) {
     const [open, setOpen] = useState(false);
     const [inputValue, setInputValue] = useState("");
     const [disabledBtn, setDisabledBtn] = useState(true);
+
+    const theme = useTheme();
+    const isSm = useMediaQuery(theme.breakpoints.up('sm'));
 
     return (
         <Box sx = {{
             display: 'flex',
             flexDirection: 'column',
             gap: 3,
-            alignItems: 'center'
+            alignItems: 'center',
+            p: 4,
+            width: {sm: 680, xs: 340}
         }}>
             <Typography variant = "h4" sx = {{width: '100%'}}>
-                You might like...
+                Movie Recommendations
             </Typography>
 
-            {/* depending on number of recs, may need to map out rows and shit*/}
-            <Box sx = {{
-                display: 'flex',
-                flexDirection: 'row',
-                gap: 2
-            }}>
-                <MovieCard url = {movieData[2][13]} height = {300}/>
-                <MovieCard url = {movieData[3][13]} height = {300}/>
-                <MovieCard url = {movieData[4][13]} height = {300}/>
-            </Box>
+            {movieRecs.map((genreInfo, genreIdx) => (
+                <Box key = {genreIdx} sx = {{
+                    display: 'flex', 
+                    flexDirection: 'column',
+                    gap: 1,
+                    width: 1
+                }}>
+                    <Typography variant = "h5" sx = {{pb: 1}}>
+                        {genreInfo[0]}
+                    </Typography>
+                    
+                    <Box sx = {{
+                        display: 'flex',
+                        flexDirection: 'row',
+                        gap: {sm: 2, xs: 1},
+                        width: 1,
+                        overflowX: 'auto'
+                    }}>
+                        {genreInfo[1].map((movieInfo, movieIdx) => (
+                            <MovieCard
+                                key = {movieIdx}
+                                url = {movieInfo[14]} 
+                                height = {isSm ? 200 : 150}
+                            />
+                        ))}
 
-            <Typography variant = "h4" sx = {{width: '100%'}}>
+                    </Box>
+                </Box>
+            ))}
+
+            <Typography variant = "h5" sx = {{width: '100%'}}>
                 Search for a movie and see if we think you'd like it!
             </Typography>
 

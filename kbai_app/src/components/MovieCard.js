@@ -1,11 +1,13 @@
+import { useState } from 'react';
+
 import { styled } from '@mui/material';
 import Skeleton from '@mui/material/Skeleton';
 import { Fade } from '@mui/material';
 
 const MuiImg = styled("img")({});
 
-function MovieCard({url, height, loaded, setLoaded}) {
-  
+function MovieCard({url, height}) {
+  const [loaded, setLoaded] = useState(false);
   var width = (2/3) * height;
 
   return (

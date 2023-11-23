@@ -20,6 +20,7 @@ function getRandomInt(max) {
 function App() {
   const [appLoaded, setAppLoaded] = useState(false);
   const [tinderMode, setTinderMode] = useState(true);
+  const [recsLoading, setRecsLoading] = useState(false);
 
   const [movieData, setMovieData] = useState([]);
   const [movieLst, setMovieLst] = useState([]);
@@ -52,7 +53,9 @@ function App() {
   const refreshMovies = (earlyEnd) => {
     if(likedMovies.length >= likeThresh || earlyEnd){
       setTinderMode(false);
+      setRecsLoading(true);
       Igs(likedMovies, hatedMovies, movieData, setMovieRecs);
+      setRecsLoading(false);
     } else {
       // create new freshLst and idxLst depending on genre stuff. Feel free to not lock by year or rating if results r overwhelming
       setMovieLst(getMovies([...idxLstState], freshLstState));
@@ -89,7 +92,7 @@ function App() {
     <Box sx = {{
       display: 'flex',
       justifyContent: 'center',
-      alignItems: 'center',
+      alignItems: tinderMode ? 'center' : 'flex-start',
       height: '94vh'
     }}>
       {
@@ -104,6 +107,11 @@ function App() {
               refreshMovies = {refreshMovies}
               likeThresh = {likeThresh}
             />
+            :
+            recsLoading ?
+            <div>
+              recs r loading lol
+            </div>
             :
             <SearchApp 
               movieData = {movieData}

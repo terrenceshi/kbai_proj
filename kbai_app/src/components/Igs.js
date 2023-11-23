@@ -151,7 +151,7 @@ export const Igs = (likedMovies, hatedMovies, movieData, setMovieRecs) => {
             j += 1;
         }
     }
-    console.log(hypothesisLst);
+    // console.log(hypothesisLst);
 
     // igs complete. Now apply concept to some random movies and see whats up.
 
@@ -197,9 +197,12 @@ export const Igs = (likedMovies, hatedMovies, movieData, setMovieRecs) => {
         }
     }
 
-    console.log(movieRecs);
+    const entries = Object.entries(movieRecs);
+    entries.sort((x, y) => y[1].length - x[1].length);
 
-    setMovieRecs(movieRecs);
+    console.log(entries)
+
+    setMovieRecs(entries);
 }
 
 const cullHypothesis = (hypothesisLst) => {

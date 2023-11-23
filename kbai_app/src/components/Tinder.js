@@ -51,11 +51,10 @@ function Tinder({movieLst, likedMovies, setLikedMovies, hatedMovies, setHatedMov
         backgroundColor: 'white',
         borderRadius: 2
     }}>
-        <MovieCard 
+        <MovieCard
+          key={idx}
           url = {movieLst[idx][14]} 
           height = {500}
-          setLoaded = {setLoaded}
-          loaded = {loaded}
         />
 
         <Box sx = {{
