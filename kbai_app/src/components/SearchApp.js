@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { Box, Typography, Autocomplete, TextField } from '@mui/material';
+import { Box, Typography, Autocomplete, TextField, Paper } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import SearchIcon from '@mui/icons-material/Search';
 import useMediaQuery from '@mui/material/useMediaQuery';
@@ -46,11 +46,10 @@ function SearchApp({movieData, movieRecs, hypoState}) {
             gap: 3,
             alignItems: 'center',
             p: 4,
-            pb: 10,
             width: {sm: 680, xs: 340}
         }}>
             <Typography variant = "h4" sx = {{width: '100%'}}>
-                Movie Recommendations
+                For You
             </Typography>
 
             {movieRecs.map((genreInfo, genreIdx) => (
@@ -74,7 +73,7 @@ function SearchApp({movieData, movieRecs, hypoState}) {
                         {genreInfo[1].map((movieInfo, movieIdx) => (
                             <MovieCard
                                 key = {movieIdx}
-                                url = {movieInfo[14]} 
+                                info = {movieInfo} 
                                 height = {isSm ? 200 : 150}
                             />
                         ))}
@@ -104,6 +103,9 @@ function SearchApp({movieData, movieRecs, hypoState}) {
                 disableClearable
                 open={open}
                 forcePopupIcon={false}
+                PaperComponent={({ children }) => (
+                <Paper style={{ background: "#edf2f2" }}>{children}</Paper>
+                )}
                 onClose={() => setOpen(false)}
                 onChange={(event, value) => {
                     setInputValue(value);
@@ -120,7 +122,10 @@ function SearchApp({movieData, movieRecs, hypoState}) {
                 }}
                 options={movieData}
                 getOptionLabel={option => option[0]}
-                sx={{ width: {md: 700, sm: 500, xs: 300} }}
+                sx={{ 
+                    width: {md: 700, sm: 500, xs: 300},
+                    pb: 36
+                }}
                 renderInput={(params) => 
                     <TextField {...params} 
                         label="Enter a movie title" 

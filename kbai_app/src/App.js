@@ -95,7 +95,7 @@ function App() {
       display: 'flex',
       justifyContent: 'center',
       alignItems: tinderMode ? 'center' : 'flex-start',
-      height: '94vh'
+      height: tinderMode ? '100vh' : 1
     }}>
       {
         appLoaded ?

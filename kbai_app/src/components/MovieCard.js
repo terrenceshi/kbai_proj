@@ -3,10 +3,11 @@ import { useState } from 'react';
 import { styled } from '@mui/material';
 import Skeleton from '@mui/material/Skeleton';
 import { Fade } from '@mui/material';
+import Tooltip from '@mui/material/Tooltip';
 
 const MuiImg = styled("img")({});
 
-function MovieCard({url, height}) {
+function MovieCard({info, height}) {
   const [loaded, setLoaded] = useState(false);
   var width = (2/3) * height;
 
@@ -16,13 +17,15 @@ function MovieCard({url, height}) {
         in={loaded}
         timeout={{ enter: 1500 }}
       >
-        <MuiImg 
-          src = {url}
-          onLoad = {() => setLoaded(true)}
-          sx = {{
-            height: height,
-            display: loaded ? 'block' : 'none',
-        }}/>
+        <Tooltip title={info[0]} placement="top">
+          <MuiImg 
+            src = {info[14]}
+            onLoad = {() => setLoaded(true)}
+            sx = {{
+              height: height,
+              display: loaded ? 'block' : 'none',
+          }}/>
+        </Tooltip>
       </Fade>
 
       <Skeleton 

@@ -53,7 +53,7 @@ function Tinder({movieLst, likedMovies, setLikedMovies, hatedMovies, setHatedMov
     }}>
         <MovieCard
           key={idx}
-          url = {movieLst[idx][14]} 
+          info = {movieLst[idx]} 
           height = {500}
         />
 
