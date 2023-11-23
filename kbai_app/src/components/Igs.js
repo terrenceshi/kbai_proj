@@ -82,7 +82,7 @@ export const Igs = (likedMovies, hatedMovies, movieData, setMovieRecs, setHypoSt
                     if(idxImp[j] > 6){
                         check = hypothesis[idxImp[j]].some(item => exampleFeat.includes(item)) 
                     } else {
-                        check = exampleFeat != hypothesis[idxImp[j]];
+                        check = exampleFeat !== hypothesis[idxImp[j]];
                     }
 
                     if(check){
@@ -161,10 +161,8 @@ export const Igs = (likedMovies, hatedMovies, movieData, setMovieRecs, setHypoSt
     'Family', 'Western', 'War', 'Romance', 'History', 'Musical',
     'Music', 'Sport', 'Film-Noir'];
 
-    console.log(movieData.length)
     let movieDataFilter = movieData.filter(n => !likedMovies.includes(n))
     movieDataFilter = movieDataFilter.filter(n => !hatedMovies.includes(n))
-    console.log(movieDataFilter.length)
 
     var movieRecs = {}
 
@@ -201,7 +199,7 @@ export const Igs = (likedMovies, hatedMovies, movieData, setMovieRecs, setHypoSt
     const entries = Object.entries(movieRecs);
     entries.sort((x, y) => y[1].length - x[1].length);
 
-    console.log(entries)
+    //console.log(entries)
 
     setMovieRecs(entries);
 }
@@ -234,7 +232,7 @@ const cullHypothesis = (hypothesisLst) => {
                 if(hypo[idxImp[k]] === -1){
                     deadTraits += 1;
                     continue;
-                } else if(hypo2[idxImp[k]] == -1){
+                } else if(hypo2[idxImp[k]] === -1){
                     continue;
                 }
 
@@ -293,7 +291,7 @@ const checkHypo = (instance, hypothesis, strict) => {
     for(let i = 0; i < idxImp.length; i++){
         let feat = hypothesis[idxImp[i]];
 
-        if(feat == -1){
+        if(feat === -1){
             deadTraits += 1;
             continue;
         }

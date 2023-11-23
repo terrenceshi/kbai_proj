@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { Box, IconButton, Typography } from '@mui/material';
+import { Box, IconButton } from '@mui/material';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ThumbDownIcon from '@mui/icons-material/ThumbDown';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
@@ -8,14 +8,11 @@ import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import MovieCard from './MovieCard.js'
 
 function Tinder({movieLst, likedMovies, setLikedMovies, hatedMovies, setHatedMovies, refreshMovies, likeThresh}) {
-  const [loaded, setLoaded] = useState(false);
-
   const iconSize = 36;
 
   const [idx, setIdx] = useState(0);
 
   const increment = () => {
-    setLoaded(false);
     if(idx < movieLst.length - 1){
       setIdx(idx + 1);
     } else {

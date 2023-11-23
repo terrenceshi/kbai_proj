@@ -32,7 +32,7 @@ function App() {
   const [movieRecs, setMovieRecs] = useState({});
   const [hypoState, setHypoState] = useState({});
 
-  const movieBatch = 20;
+  const movieBatch = 12;
   var likeThresh = 15;
 
   const getMovies = (idxLst, sampleLst) => {
