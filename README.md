@@ -16,12 +16,20 @@ array(['Action', 'Animation', 'Adventure', 'Comedy', 'Crime', 'Drama',
 
 Download data from here:
 
--insert link later-
+https://drive.google.com/file/d/1NGOVlkSh3fvXBc79At_jjmlEXytm_boG/view?usp=sharing
 
-Put the csv file into kbai_app/src/data. Be sure to have nodejs installed.
+Be sure to have nodejs installed. Assuming your commandline is in kbai_proj (the project's root directory), you can do:
 
 ```
 cd kbai_app
+cd src
+mkdir data
+```
+
+Put movie_data7.csv into this new data folder you just created.
+
+```
+cd ../../
 npm install
 npm start
 ```
