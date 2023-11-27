@@ -14,6 +14,29 @@ array(['Action', 'Animation', 'Adventure', 'Comedy', 'Crime', 'Drama',
 
 ## Setting Up Locally
 
+### Playing with My Jupyter Notebooks?
+
+It's not necessary to do anything with anything in the research folder, as the purpose of all those notebooks is to produce the final csv, which you can just download in "Setting up the React App". However, if you must, first, create a folder named "data" and insert the kaggle dataset into "data". You'll probably have to rename the csv file to "imdb_data.csv".
+
+In chronological order, you'll probably want to run:
+```
+data cleaning.ipynb
+get posters.ipynb
+popularity.ipynb
+duplicates.ipynb
+```
+
+The next thing you'll have to do is get a tmdb api key. It should be easy to get online, but worst case, you could ask me for mine. You'll have to paste the key into any cell that says 
+
+```
+key = ""
+```
+
+I believe every notebook aside from duplicates.ipynb has a cell like this. Note that some cells will take a long time.
+
+By the end of all of this, you'll end up with movie_data7.csv in the data folder.
+
+### Setting up the React App
 Download data from here:
 
 https://drive.google.com/file/d/1NGOVlkSh3fvXBc79At_jjmlEXytm_boG/view?usp=sharing
