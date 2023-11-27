@@ -6,6 +6,7 @@ import JSON5 from 'json5'
 
 import { Box } from '@mui/material';
 import Skeleton from '@mui/material/Skeleton';
+import LinearProgress from '@mui/material/LinearProgress';
 
 import url from "./data/movie_data7.csv";
 
@@ -94,8 +95,8 @@ function App() {
     <Box sx = {{
       display: 'flex',
       justifyContent: 'center',
-      alignItems: tinderMode ? 'center' : 'flex-start',
-      height: tinderMode ? '100vh' : 1
+      alignItems: tinderMode || recsLoading ? 'center' : 'flex-start',
+      height: tinderMode || recsLoading ? '100vh' : 1
     }}>
       {
         appLoaded ?
@@ -111,9 +112,7 @@ function App() {
             />
             :
             recsLoading ?
-            <div>
-              recs r loading lol
-            </div>
+            <LinearProgress sx = {{width: 300}}/>
             :
             <SearchApp 
               movieData = {movieData}
