@@ -18,7 +18,7 @@ Download data from here:
 
 https://drive.google.com/file/d/1NGOVlkSh3fvXBc79At_jjmlEXytm_boG/view?usp=sharing
 
-Be sure to have nodejs installed. Assuming your commandline is in kbai_proj (the project's root directory), you can do:
+Be sure to have nodejs installed. Assuming your command-line is in kbai_proj (the project's root directory), you can do:
 
 ```
 cd kbai_app
