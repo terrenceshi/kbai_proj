@@ -1,6 +1,6 @@
 # kbai_proj
 
-## Misc Info:
+## Misc Infoo:
 
 https://www.kaggle.com/datasets/utsh0dey/25k-movie-dataset
 
