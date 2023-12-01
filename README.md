@@ -1,6 +1,6 @@
 # kbai_proj
 
-## Random info:
+## Dataset link and complete list of genres:
 
 https://www.kaggle.com/datasets/utsh0dey/25k-movie-dataset
 
