@@ -97,7 +97,7 @@ function App() {
     <Box sx = {{
       display: 'flex',
       justifyContent: 'center',
-      alignItems: tinderMode || recsLoading ? 'flex-start' : 'flex-start',
+      alignItems: tinderMode || recsLoading ? 'center' : 'flex-start',
       height: tinderMode || recsLoading ? '100vh' : 1
     }}>
       {
@@ -107,7 +107,8 @@ function App() {
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
-              gap: 2
+              gap: 2,
+              pb: 4
             }}>
               <Tinder
                 movieLst = {movieLst} 
@@ -144,7 +145,7 @@ function App() {
             height={height+84} 
             sx={{
               bgcolor: 'grey.300',
-              mt: 4
+              mb: 7
           }}/>
       }
     </Box>
