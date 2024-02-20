@@ -7,7 +7,7 @@ import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 
 import MovieCard from './MovieCard.js'
 
-function Tinder({movieLst, likedMovies, setLikedMovies, hatedMovies, setHatedMovies, refreshMovies, likeThresh}) {
+function Tinder({movieLst, likedMovies, setLikedMovies, hatedMovies, setHatedMovies, refreshMovies, likeThresh, height}) {
   const iconSize = 36;
 
   const [idx, setIdx] = useState(0);
@@ -51,7 +51,7 @@ function Tinder({movieLst, likedMovies, setLikedMovies, hatedMovies, setHatedMov
         <MovieCard
           key={idx}
           info = {movieLst[idx]} 
-          height = {500}
+          height = {height}
         />
 
         <Box sx = {{
@@ -72,6 +72,7 @@ function Tinder({movieLst, likedMovies, setLikedMovies, hatedMovies, setHatedMov
             <VisibilityOffIcon sx = {{fontSize: iconSize}}/>
         </IconButton>
         </Box>
+        
     </Box>
 
   );

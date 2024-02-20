@@ -36,6 +36,8 @@ function App() {
   const movieBatch = 12;
   var likeThresh = 15;
 
+  var height = 450;
+
   const getMovies = (idxLst, sampleLst) => {
     var firstMovieLst = [];
 
@@ -95,21 +97,37 @@ function App() {
     <Box sx = {{
       display: 'flex',
       justifyContent: 'center',
-      alignItems: tinderMode || recsLoading ? 'center' : 'flex-start',
+      alignItems: tinderMode || recsLoading ? 'flex-start' : 'flex-start',
       height: tinderMode || recsLoading ? '100vh' : 1
     }}>
       {
         appLoaded ?
           tinderMode ?
-            <Tinder
-              movieLst = {movieLst} 
-              likedMovies = {likedMovies}
-              setLikedMovies = {setLikedMovies}
-              hatedMovies = {hatedMovies}
-              setHatedMovies = {setHatedMovies}
-              refreshMovies = {refreshMovies}
-              likeThresh = {likeThresh}
-            />
+            <Box sx = {{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              gap: 2
+            }}>
+              <Tinder
+                movieLst = {movieLst} 
+                likedMovies = {likedMovies}
+                setLikedMovies = {setLikedMovies}
+                hatedMovies = {hatedMovies}
+                setHatedMovies = {setHatedMovies}
+                refreshMovies = {refreshMovies}
+                likeThresh = {likeThresh}
+                height = {height}
+              />
+              <LinearProgress sx = {{
+                borderRadius: 5, 
+                width: height * (2/3),
+                height: 6
+              }}
+                variant="determinate" 
+                value={100 * (likedMovies.length / likeThresh)} 
+              />
+            </Box>
             :
             recsLoading ?
             <LinearProgress sx = {{width: 300}}/>
@@ -122,10 +140,11 @@ function App() {
           :
           <Skeleton 
             variant="rounded"
-            width={500 * (2/3)} 
-            height={500+84} 
+            width={height * (2/3)} 
+            height={height+84} 
             sx={{
               bgcolor: 'grey.300',
+              mt: 4
           }}/>
       }
     </Box>
